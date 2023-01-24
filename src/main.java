@@ -12,35 +12,25 @@ public class main{
         return arrayCard.subList(0, 4);
     }
 
-    public static void writeLines(List<String> kalimat){
-        System.out.println("Masukkan nama file:");
-        Scanner input = new Scanner(System.in);
-        String fileName = input.nextLine();
-        fileName = fileName + ".txt";
+    public static void createFile(String filename, List<String> list){
         try{
-            File objek = new File(fileName);
-            if (objek.createNewFile()){
-                System.out.println("File created: " + objek.getName());
-            } else {
-                System.out.println("File already exists");
+            BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+            for (String s: list){
+                bw.write(s);
+                bw.newLine();
             }
-        } catch (IOException e){
-            System.out.println("Error");
-            e.printStackTrace();
+            System.out.println("File created and write succesfully");
+            bw.close();
         }
-
-        try(FileWriter penulis = new FileWriter(fileName)){
-            for (String i : kalimat){
-                penulis.write(i + System.lineSeparator());
-            }
-            penulis.close();
-        } catch (IOException e) {
-            System.out.println("Error!");
+        catch (IOException e){
+            System.out.println("An Error Has Occured");
             e.printStackTrace();
         }
     }
 
-    public static void main(String[] args) throws IOException{
+
+
+    public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         Scanner masukan = new Scanner(System.in);
         String kartu;
@@ -83,12 +73,12 @@ public class main{
         List<String> hasil = game.solusi(cards);
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
+        String nama_file;
 
         System.out.println("Apakah ingin menyimpan solusi? (Y/N)");
         char final2 = masukan.next().charAt(0);
         while(final2 != ('Y') && final2 !=('N')){
             if (final2 == ('Y')){
-                writeLines(hasil);
                 break;
             }
             else if (final2 == ('N')){
@@ -96,7 +86,18 @@ public class main{
             }
             System.out.println("Apakah ingin menyimpan solusi? (Y/N)");
             final2 = masukan.next().charAt(0);
-        }   
+        }
+        Scanner nama = new Scanner(System.in);
+        if (final2 == 'Y'){
+            System.out.println("Masukkan Nama File:");
+            nama_file = nama.nextLine();
+            nama_file = nama_file + ".txt";
+            createFile(nama_file, hasil);
+        }
+
         System.out.println("Execution time: " + totalTime + " ms");
+        input.close();
+        masukan.close();
+        nama.close();
     }
 }
