@@ -2,7 +2,6 @@ import java.io.*;
 import java.util.*;
 
 public class main{
-
     public static List<String> randomList(){
         List<String> arrayCard = new ArrayList<>();
         arrayCard.add("A");arrayCard.add("2");arrayCard.add("3");arrayCard.add("4");
@@ -12,6 +11,35 @@ public class main{
         Collections.shuffle(arrayCard);
         return arrayCard.subList(0, 4);
     }
+
+    public static void writeLines(List<String> kalimat){
+        System.out.println("Masukkan nama file:");
+        Scanner input = new Scanner(System.in);
+        String fileName = input.nextLine();
+        fileName = fileName + ".txt";
+        try{
+            File objek = new File(fileName);
+            if (objek.createNewFile()){
+                System.out.println("File created: " + objek.getName());
+            } else {
+                System.out.println("File already exists");
+            }
+        } catch (IOException e){
+            System.out.println("Error");
+            e.printStackTrace();
+        }
+
+        try(FileWriter penulis = new FileWriter(fileName)){
+            for (String i : kalimat){
+                penulis.write(i + System.lineSeparator());
+            }
+            penulis.close();
+        } catch (IOException e) {
+            System.out.println("Error!");
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) throws IOException{
         Scanner input = new Scanner(System.in);
         Scanner masukan = new Scanner(System.in);
@@ -45,19 +73,30 @@ public class main{
                         n++;
                         }
                     }
-            
-                
                 }
             }
         }
-        input.close();
         String[] cards = (String[]) card_input.toArray(new String[0]);
         DuaPuluhEmpat game = new DuaPuluhEmpat();
-        long startTime = System.currentTimeMillis();
-        game.solusi(cards);
 
+        long startTime = System.currentTimeMillis();
+        List<String> hasil = game.solusi(cards);
         long endTime = System.currentTimeMillis();
         long totalTime = endTime - startTime;
+
+        System.out.println("Apakah ingin menyimpan solusi? (Y/N)");
+        char final2 = masukan.next().charAt(0);
+        while(final2 != ('Y') && final2 !=('N')){
+            if (final2 == ('Y')){
+                writeLines(hasil);
+                break;
+            }
+            else if (final2 == ('N')){
+                break;
+            }
+            System.out.println("Apakah ingin menyimpan solusi? (Y/N)");
+            final2 = masukan.next().charAt(0);
+        }   
         System.out.println("Execution time: " + totalTime + " ms");
     }
 }

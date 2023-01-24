@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.function.IntBinaryOperator;
+import java.io.*;
 
 class card {
     public static int convertCardToInt(String rank) {
@@ -53,7 +55,7 @@ class DuaPuluhEmpat {
         opnames.add('/');
     }
 
-    public void solusi(String[] num) {
+    public List<String> solusi(String[] num) {
         List<Integer> digits = new ArrayList<Integer>();
         digits.add(card.convertCardToInt(num[0]));
         digits.add(card.convertCardToInt(num[1]));
@@ -110,6 +112,7 @@ class DuaPuluhEmpat {
         } else {
             System.out.println("Tidak ada solusi");
         }
+    return solutions;
     }
 }
 
