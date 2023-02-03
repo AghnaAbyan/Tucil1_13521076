@@ -1,40 +1,24 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.function.IntBinaryOperator;
-import java.io.*;
 
 class card {
     public static int convertCardToInt(String rank) {
         switch(rank){
-            case "A":
-                return 1;
-            case "2":
-                return 2;
-            case "3":
-                return 3;
-            case "4":
-                return 4;
-            case "5":
-                return 5;
-            case "6":
-                return 6;
-            case "7":
-                return 7;
-            case "8":
-                return 8;
-            case "9":
-                return 9;
-            case "10":
-                return 10;
-            case "J":
-                return 11;
-            case "Q":
-                return 12;
-            case "K":
-                return 13;
-            default:
-                return 0;
+            case "A" : return 1;
+            case "2" : return 2;
+            case "3" : return 3;
+            case "4" : return 4;
+            case "5" : return 5;
+            case "6" : return 6;
+            case "7" : return 7;
+            case "8" : return 8;
+            case "9" : return 9;
+            case "10": return 10;
+            case "J" : return 11;
+            case "Q" : return 12;
+            case "K" : return 13;
+            default  : return 0;
         }
     }
 }
@@ -44,15 +28,10 @@ class DuaPuluhEmpat {
     private static final List<Character> opnames = new ArrayList<Character>();
 
     public DuaPuluhEmpat() {
-        operators.add((a, b) -> a + b);
-        operators.add((a, b) -> a - b);
-        operators.add((a, b) -> a * b);
-        operators.add((a, b) -> (b != 0 && a % b == 0) ? a / b : Integer.MIN_VALUE);
-        operators.add((a, b) -> (a == 0 || a == 1 || b < 9) ? (int) Math.pow(a, b) : Integer.MIN_VALUE);
-        opnames.add('+');
-        opnames.add('-');
-        opnames.add('*');
-        opnames.add('/');
+        operators.add((a, b) -> a + b); opnames.add('+');
+        operators.add((a, b) -> a - b); opnames.add('-');
+        operators.add((a, b) -> a * b); opnames.add('*');
+        operators.add((a, b) -> (b != 0 && a % b == 0) ? a / b : Integer.MIN_VALUE); opnames.add('/');
     }
 
     public List<String> solusi(String[] num) {
@@ -105,7 +84,7 @@ class DuaPuluhEmpat {
             }
         }
         System.out.println(solutions.size() + " Solutions found");
-        if(solutions.size()>0) {
+        if(solutions.size() > 0) {
             for (String solution : solutions) {
                 System.out.println(solution);
             }
@@ -114,7 +93,6 @@ class DuaPuluhEmpat {
         }
     return solutions;
     }
-}
-
+} 
 public class brute {
 }
